@@ -137,6 +137,11 @@ st.markdown("""
 .stSpinner > div {
     border-top-color: #ff2020 !important;
 }
+/* Hide Streamlit branding */
+#MainMenu {visibility: hidden;}
+footer {visibility: hidden;}
+header {visibility: hidden;}
+.stDeployButton {display: none;}
 </style>
 """, unsafe_allow_html=True)
 
