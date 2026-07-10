@@ -1,0 +1,14 @@
+langchain
+langchain-openai
+langchain-community
+langchain-groq
+langchain-huggingface
+openai
+chromadb
+redis
+streamlit
+python-dotenv
+SpeechRecognition
+pyaudio
+openai-whisper
+sentence-transformers
