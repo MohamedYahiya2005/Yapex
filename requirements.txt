@@ -9,6 +9,4 @@ redis
 streamlit
 python-dotenv
 SpeechRecognition
-pyaudio
-openai-whisper
 sentence-transformers
