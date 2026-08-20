@@ -1,20 +1,21 @@
-import speech_recognition as sr
+import os
+import io
+from groq import Groq
+from dotenv import load_dotenv
 
-def transcribe_voice_realtime(live_placeholder=None):
-    recognizer = sr.Recognizer()
+load_dotenv()
+
+def transcribe_audio_bytes(audio_bytes):
     try:
-        with sr.Microphone() as source:
-            if live_placeholder:
-                live_placeholder.markdown("🎙️ Listening... Speak now!")
-            recognizer.adjust_for_ambient_noise(source, duration=0.5)
-            audio = recognizer.listen(source, timeout=8, phrase_time_limit=15)
-            if live_placeholder:
-                live_placeholder.markdown("⚙️ Processing...")
-            text = recognizer.recognize_google(audio, language="en")
-            return text
-    except sr.WaitTimeoutError:
-        return "No speech detected. Try again."
-    except sr.UnknownValueError:
-        return "Could not understand. Please speak clearly."
+        client = Groq(api_key=os.getenv("GROQ_API_KEY"))
+        audio_file = io.BytesIO(audio_bytes)
+        audio_file.name = "voice.wav"
+
+        transcription = client.audio.transcriptions.create(
+            file=audio_file,
+            model="whisper-large-v3",
+            language="en"
+        )
+        return transcription.text.strip()
     except Exception as e:
         return f"Voice error: {str(e)}"

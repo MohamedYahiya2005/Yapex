@@ -1,12 +1,7 @@
-langchain
-langchain-openai
-langchain-community
 langchain-groq
-langchain-huggingface
-openai
+langchain-core
 chromadb
-redis
 streamlit
 python-dotenv
-SpeechRecognition
-sentence-transformers
+groq
+audio-recorder-streamlit
