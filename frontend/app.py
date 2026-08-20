@@ -4,7 +4,6 @@ sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), '..')
 
 import streamlit as st
 import uuid
-from audio_recorder_streamlit import audio_recorder
 from agent.agent_core import chat
 from agent.voice import transcribe_audio_bytes
 
@@ -112,8 +111,9 @@ for msg in st.session_state.messages:
 col1, col2 = st.columns([4, 1])
 
 with col2:
-    audio_bytes = audio_recorder(text="", icon_size="2x", pause_threshold=2.0, key="recorder")
-    if audio_bytes:
+    audio_value = st.audio_input("", label_visibility="collapsed", key="recorder")
+    if audio_value is not None:
+        audio_bytes = audio_value.getvalue()
         audio_id = hash(audio_bytes)
         if audio_id != st.session_state.last_audio_id:
             st.session_state.last_audio_id = audio_id
